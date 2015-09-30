@@ -9,45 +9,35 @@
         <Flow name="Login">
             <Description/>
             <Request>
-                <Step>
-                    <FaultRules/>
-                    <Name>setConfig</Name>
-                </Step>
-                <Step>
-                    <FaultRules/>
-                    <Name>extractRequest</Name>
-                </Step>
-                <Step>
-                    <FaultRules/>
-                    <Name>decodeRequest</Name>
-                </Step>
+                <Step><Name>JS-setConfig</Name></Step>
+                <Step><Name>extractRequest</Name></Step>
+                <Step><Name>PY-decodeRequest</Name></Step>
             </Request>
             <Response>
-                <Step>
-                    <FaultRules/>
-                    <Name>setResponse</Name>
-                </Step>
-                <Step>
-                    <FaultRules/>
-                    <Name>createResponse</Name>
-                </Step>
-                <Step>
-                    <FaultRules/>
-                    <Name>createSAMLResponse</Name>
-                </Step>
+                <Step><Name>JS-stripXmlDecl</Name></Step>
+                <Step><Name>Assign-createResponse</Name></Step>
+                <Step><Name>JS-createSAMLResponse</Name></Step>
             </Response>
-            <Condition>(proxy.pathsuffix MatchesPath &quot;/idp/login&quot;)</Condition>
+            <Condition>(proxy.pathsuffix MatchesPath "/idp/login")</Condition>
         </Flow>
         <Flow name="Logout">
             <Description/>
             <Request/>
             <Response>
                 <Step>
-                    <FaultRules/>
-                    <Name>setLogoutResponse</Name>
+                    <Name>JS-setLogoutResponse</Name>
                 </Step>
             </Response>
-            <Condition>(proxy.pathsuffix MatchesPath &quot;/idp/logout&quot;)</Condition>
+            <Condition>(proxy.pathsuffix MatchesPath "/idp/logout")</Condition>
+        </Flow>
+        <Flow name="Error">
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>JS-setErrorResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/idp/error")</Condition>
         </Flow>
     </Flows>
     <PostFlow name="PostFlow">
@@ -59,10 +49,11 @@
         <VirtualHost>default</VirtualHost>
         <VirtualHost>secure</VirtualHost>
     </HTTPProxyConnection>
-    <RouteRule name="no-route">
-        <Condition>(proxy.pathsuffix MatchesPath &quot;/idp/logout&quot;)</Condition>
-    </RouteRule>
     <RouteRule name="default">
         <TargetEndpoint>default</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/idp/login")</Condition>
+    </RouteRule>
+    <RouteRule name="no-route">
+      <!-- <Condition>(proxy.pathsuffix MatchesPath "/idp/logout")</Condition> -->
     </RouteRule>
 </ProxyEndpoint>

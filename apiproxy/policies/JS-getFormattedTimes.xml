@@ -1,0 +1,4 @@
+<Javascript name="JS-getFormattedTimes">
+    <IncludeURL>jsc://addMonths.js</IncludeURL>
+    <ResourceURL>jsc://getFormattedTimes.js</ResourceURL>
+</Javascript>

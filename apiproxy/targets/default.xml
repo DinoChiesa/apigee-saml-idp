@@ -3,20 +3,11 @@
     <Description/>
     <PreFlow name="PreFlow">
         <Request>
-            <Step>
-                <FaultRules/>
-                <Name>getFormattedTime</Name>
-            </Step>
-            <Step>
-                <FaultRules/>
-                <Name>generateSAMLAssertion</Name>
-            </Step>
+            <Step><Name>JS-getFormattedTimes</Name></Step>
+            <Step><Name>generateSAMLAssertion</Name></Step>
         </Request>
         <Response>
-            <Step>
-                <FaultRules/>
-                <Name>createSAMLResponse</Name>
-            </Step>
+            <Step><Name>JS-createSAMLResponse</Name></Step>
         </Response>
     </PreFlow>
     <Flows/>

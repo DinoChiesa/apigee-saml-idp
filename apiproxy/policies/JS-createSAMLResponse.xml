@@ -1,0 +1,4 @@
+<Javascript name="JS-createSAMLResponse">
+    <IncludeURL>jsc://base64.js</IncludeURL>
+    <ResourceURL>jsc://createSAMLResponse.js</ResourceURL>
+</Javascript>
